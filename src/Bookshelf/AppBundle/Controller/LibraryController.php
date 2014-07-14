@@ -2,6 +2,8 @@
 
 namespace Bookshelf\AppBundle\Controller;
 
+use JMS\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -9,11 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Bookshelf\AppBundle\Entity\Library;
 use Bookshelf\AppBundle\Form\LibraryType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Library controller.
  *
- * @Route("/library")
  */
 class LibraryController extends Controller
 {
@@ -21,7 +23,7 @@ class LibraryController extends Controller
     /**
      * Lists all Library entities.
      *
-     * @Route("/", name="library")
+     * @Route("/library", name="library")
      * @Method("GET")
      * @Template()
      */
@@ -30,15 +32,16 @@ class LibraryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BookshelfAppBundle:Library')->findAll();
+        $serializer = $this->get('serializer');
 
-        return array(
-            'entities' => $entities,
-        );
+        return new Response($serializer->serialize(['library' => $entities], 'json'), Response::HTTP_OK, [
+            'Content-Type' => 'application/json'
+        ]);
     }
     /**
      * Creates a new Library entity.
      *
-     * @Route("/", name="library_create")
+     * @Route("/library", name="library_create")
      * @Method("POST")
      * @Template("BookshelfAppBundle:Library:new.html.twig")
      */
@@ -84,7 +87,7 @@ class LibraryController extends Controller
     /**
      * Displays a form to create a new Library entity.
      *
-     * @Route("/new", name="library_new")
+     * @Route("/library/new", name="library_new")
      * @Method("GET")
      * @Template()
      */
@@ -102,7 +105,7 @@ class LibraryController extends Controller
     /**
      * Finds and displays a Library entity.
      *
-     * @Route("/{id}", name="library_show")
+     * @Route("/library/{id}", name="library_show")
      * @Method("GET")
      * @Template()
      */
@@ -127,7 +130,7 @@ class LibraryController extends Controller
     /**
      * Displays a form to edit an existing Library entity.
      *
-     * @Route("/{id}/edit", name="library_edit")
+     * @Route("/library/{id}/edit", name="library_edit")
      * @Method("GET")
      * @Template()
      */
@@ -172,7 +175,7 @@ class LibraryController extends Controller
     /**
      * Edits an existing Library entity.
      *
-     * @Route("/{id}", name="library_update")
+     * @Route("/library/{id}", name="library_update")
      * @Method("PUT")
      * @Template("BookshelfAppBundle:Library:edit.html.twig")
      */
@@ -205,7 +208,7 @@ class LibraryController extends Controller
     /**
      * Deletes a Library entity.
      *
-     * @Route("/{id}", name="library_delete")
+     * @Route("/library/{id}", name="library_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)

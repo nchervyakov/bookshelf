@@ -1,1 +1,171 @@
 {% extends 'BookshelfAppBundle::layout.html.twig' %}
+
+{% block page_content %}
+    {{ '{{outlet}}' }}
+
+
+{% endblock page_content %}
+
+{% block templates %}
+    {{ parent() }}
+    <script type="text/x-handlebars" id="index">
+        <div class="control-bar">
+            <button type="button" class="btn btn-primary btn-add-book">Add book</button>
+
+            <label for="selectLibrary">Library:</label>
+            <select class="form-control library-selector" id="selectLibrary">
+                <option>Select library...</option>
+                {% raw %}
+                {{#each}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+                {% endraw %}
+            </select>
+
+            <button type="button" class="btn">Modify</button>
+            <button type="button" class="btn">Delete</button>
+        </div>
+
+        <table class="table table-striped books-table">
+            <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Book
+                </th>
+                <th>
+                    Author
+                </th>
+                <th class="actions-row">
+                    Actions
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    TB - Monthly
+                </td>
+                <td>
+                    01/04/2012
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm">Edit</button>
+                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    TB - Monthly
+                </td>
+                <td>
+                    01/04/2012
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm">Edit</button>
+                    <button type="button" class="btn btn-sm">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    2
+                </td>
+                <td>
+                    TB - Monthly
+                </td>
+                <td>
+                    02/04/2012
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm">Edit</button>
+                    <button type="button" class="btn btn-sm">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    3
+                </td>
+                <td>
+                    TB - Monthly
+                </td>
+                <td>
+                    03/04/2012
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm">Edit</button>
+                    <button type="button" class="btn btn-sm">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    4
+                </td>
+                <td>
+                    TB - Monthly
+                </td>
+                <td>
+                    04/04/2012
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm">Edit</button>
+                    <button type="button" class="btn btn-sm">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--ul class="pagination">
+            <li>
+                <a href="#">Prev</a>
+            </li>
+            <li>
+                <a href="#">1</a>
+            </li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">3</a>
+            </li>
+            <li>
+                <a href="#">4</a>
+            </li>
+            <li>
+                <a href="#">5</a>
+            </li>
+            <li>
+                <a href="#">Next</a>
+            </li>
+        </ul-->
+    </script>
+
+
+    <script type="text/x-handlebars" id="form">
+        <!--button type="button" class="btn btn-primary btn-lg">Default</button-->
+        <form role="form">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label><input class="form-control" id="exampleInputEmail1" type="email" />
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label><input class="form-control" id="exampleInputPassword1" type="password" />
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label><input id="exampleInputFile" type="file" />
+                <p class="help-block">
+                    Example block-level help text here.
+                </p>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" /> Check me out</label>
+            </div> <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </script>
+{% endblock templates %}

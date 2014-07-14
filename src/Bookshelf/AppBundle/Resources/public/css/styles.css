@@ -1,3 +1,24 @@
 .control-bar {
     text-align: right;
 }
+
+.control-bar .btn-add-book {
+    float: left;
+}
+
+.footer {
+    min-height: 60px;
+}
+
+.books-table th.actions-row {
+    text-align: center;
+}
+
+.books-table td:last-of-type {
+    text-align: right;
+}
+
+.library-selector {
+    display: inline;
+    width: auto;
+}

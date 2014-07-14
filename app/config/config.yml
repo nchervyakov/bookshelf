@@ -38,7 +38,7 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ BookshelfAppBundle ]
-    #java: /usr/bin/java
+    java: /usr/bin/java
     filters:
         cssrewrite: ~
         #closure:
@@ -71,3 +71,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_js_routing:
+    routes_to_expose:
+        - home
+        - library

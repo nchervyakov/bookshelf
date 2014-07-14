@@ -22,7 +22,9 @@
         "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
-        "doctrine/doctrine-fixtures-bundle": "~2.2.0"
+        "doctrine/doctrine-fixtures-bundle": "~2.2.0",
+        "jms/serializer": "dev-master",
+        "jms/serializer-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
