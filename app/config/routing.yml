@@ -1,0 +1,5 @@
+bookshelf_app:
+    resource: "@BookshelfAppBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
