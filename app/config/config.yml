@@ -28,12 +28,16 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        developer_name: "%developer_name%"
+        developer_url: "%developer_url%"
+        developer_email: "%developer_email%"
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ BookshelfAppBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

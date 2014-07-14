@@ -17,3 +17,7 @@ parameters:
     debug_toolbar:          true
     debug_redirects:        false
     use_assetic_controller: true
+
+    developer_name:    'Nick Chervyakov'
+    developer_url:     'http://chervyakov.pro'
+    developer_email:   'nick.chervyakov@gmail.com'

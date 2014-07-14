@@ -1,0 +1,228 @@
+{% extends '::base.html.twig' %}
+
+{% block meta %}
+    {{ parent() }}
+    <meta name="author" content="{{ developer_name }}, {{ developer_email }}">
+    <meta name="web_author" content="{{ developer_name }}, {{ developer_email }}">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        'bundles/bookshelfapp/css/vendor/bootstrap.css'
+        'bundles/bookshelfapp/css/styles.css'
+        filter='cssrewrite'
+        output='compiled/css/*.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        'bundles/bookshelfapp/js/vendor/es5-shim.js'
+        'bundles/bookshelfapp/js/vendor/es6-shim.js'
+        'bundles/bookshelfapp/js/vendor/json3.js'
+        'bundles/bookshelfapp/js/vendor/jquery-1.10.2.js'
+        'bundles/bookshelfapp/js/vendor/jquery-migrate-1.2.1.js'
+        'bundles/bookshelfapp/js/vendor/handlebars-1.1.2.js'
+        'bundles/fosjsrouting/js/router.js'
+
+        'bundles/bookshelfapp/js/vendor/bootstrap.js'
+        output='compiled/js/*.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts
+        'bundles/bookshelfapp/js/vendor/ember-1.6.0.js'
+        output='compiled/js/*.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts
+        'js/fos_js_routes.js'
+        'bundles/bookshelfapp/js/app.js'
+        output='compiled/js/*.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}" defer="defer"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Bookshelf</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+
+                <div class="control-bar">
+                    Select library:
+                    <div class="btn-group">
+                        <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">Action</a>
+                            </li>
+                            <li class="disabled">
+                                <a href="#">Another action</a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn">Modify</button>
+                    <button type="button" class="btn">Delete</button>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Payment Taken
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Default
+                        </td>
+                    </tr>
+                    <tr class="active">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                        <td>
+                            Declined
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                    </tr>
+                    <tr class="danger">
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                        <td>
+                            Call in to confirm
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination">
+                    <li>
+                        <a href="#">Prev</a>
+                    </li>
+                    <li>
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">Next</a>
+                    </li>
+                </ul>
+                <script type="text/x-template">
+                    <!--button type="button" class="btn btn-primary btn-lg">Default</button-->
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label><input class="form-control" id="exampleInputEmail1" type="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label><input class="form-control" id="exampleInputPassword1" type="password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label><input id="exampleInputFile" type="file" />
+                            <p class="help-block">
+                                Example block-level help text here.
+                            </p>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" /> Check me out</label>
+                        </div> <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </script>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; {{ developer_name }} 2014</p>
+        </footer>
+    </div>
+{% endblock body %}
