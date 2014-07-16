@@ -34,7 +34,7 @@ class LibraryController extends Controller
         $entities = $em->getRepository('BookshelfAppBundle:Library')->findAll();
         $serializer = $this->get('serializer');
 
-        return new Response($serializer->serialize(['library' => $entities], 'json'), Response::HTTP_OK, [
+        return new Response($serializer->serialize(['data' => $entities], 'json'), Response::HTTP_OK, [
             'Content-Type' => 'application/json'
         ]);
     }
@@ -112,19 +112,15 @@ class LibraryController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BookshelfAppBundle:Library')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Library entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return new Response($this->get('serializer')->serialize($entity, 'json'), Response::HTTP_OK, [
+            'Content-Type' => 'application/json'
+        ]);
     }
 
     /**
@@ -175,8 +171,8 @@ class LibraryController extends Controller
     /**
      * Edits an existing Library entity.
      *
-     * @Route("/library/{id}", name="library_update")
-     * @Method("PUT")
+     * @Route("/library/{id}/update", name="library_update")
+     * @Method("POST")
      * @Template("BookshelfAppBundle:Library:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -208,8 +204,8 @@ class LibraryController extends Controller
     /**
      * Deletes a Library entity.
      *
-     * @Route("/library/{id}", name="library_delete")
-     * @Method("DELETE")
+     * @Route("/library/{id}/delete", name="library_delete")
+     * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
     {

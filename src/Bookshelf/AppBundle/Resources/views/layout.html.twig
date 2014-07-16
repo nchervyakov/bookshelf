@@ -39,13 +39,21 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts
+    {# % javascripts
         'bundles/bookshelfapp/js/vendor/ember.js'
         'bundles/bookshelfapp/js/vendor/ember-data.js'
+        output='compiled/js/*.js'
+    %#}
+    {% javascripts
+        'bundles/bookshelfapp/js/vendor/can.custom.js'
         output='compiled/js/*.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script type="text/javascript">
+        window.App = window.App || {};
+    </script>
 
     {% javascripts
         'js/fos_js_routes.js'
@@ -58,24 +66,28 @@
 
 {% block body %}
     {{ parent() }}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Bookshelf</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column content-area">
+                {% block page_content %}{% endblock %}
+            </div>
+        </div>
+        <hr>
+        <footer class="footer">
+            <p>&copy; <a href="{{ developer_url }}" target="_blank">{{ developer_name }}</a> 2014</p>
+        </footer>
+    </div>
+
     {% block templates %}
-        <script type="text/x-handlebars" id="application">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1>Bookshelf</h1>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
-                        {{ '{{outlet}}' }}
-                    </div>
-                </div>
-                <hr>
-                <footer class="footer">
-                    <p>&copy; <a href="{{ developer_url }}" target="_blank">{{ developer_name }}</a> 2014</p>
-                </footer>
-            </div>
-        </script>
+        {{ parent() }}
+        {% raw %}
+
+        {% endraw %}
     {% endblock templates %}
 {% endblock body %}

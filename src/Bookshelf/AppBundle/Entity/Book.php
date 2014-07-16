@@ -3,6 +3,9 @@
 namespace Bookshelf\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMSA;
+use Symfony\Component\Validator\Constraints\Expression;
+
 
 /**
  * Book
@@ -40,6 +43,7 @@ class Book
      *
      * @ORM\ManyToOne(targetEntity="Library")
      * @ORM\JoinColumn(name="library_id", referencedColumnName="id", nullable=false)
+     * @JMSA\Exclude()
      */
     private $library;
 
@@ -116,5 +120,15 @@ class Book
         $this->library = $library;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     * @JMSA\VirtualProperty()
+     * @JMSA\SerializedName("library")
+     */
+    public function getLibraryId()
+    {
+        return $this->getLibrary()->getId();
     }
 }

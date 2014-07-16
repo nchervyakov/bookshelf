@@ -22,3 +22,7 @@
     display: inline;
     width: auto;
 }
+
+p.info {
+    padding-top: 30px;
+}

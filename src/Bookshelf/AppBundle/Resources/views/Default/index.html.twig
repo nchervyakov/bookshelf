@@ -1,126 +1,101 @@
 {% extends 'BookshelfAppBundle::layout.html.twig' %}
 
 {% block page_content %}
-    {{ '{{outlet}}' }}
+    {{ parent() }}
+    <div class="library js-library">
+        <div class="control-bar">
+            <button type="button" class="btn btn-primary btn-add-book js-add-book">Add book</button>
 
+            <label for="selectLibrary">Library:</label>
+            <select name="select_library" id="selectLibrary" class="js-select-library form-control library-selector">
+                <option value="">Select library...</option>
+            </select>
+            <button type="button" class="btn js-add-library">Add</button>
+            <button type="button" class="btn js-edit-library">Modify</button>
+            <button type="button" class="btn js-remove-library">Delete</button>
+        </div>
+        <div class="js-books">
+            <p class="info">Please select the library.</p>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm js-book-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="book-modal-content js-book-modal-content">
+                    <div class="modal-header">
+                        <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 id="myLargeModalLabel" class="modal-title js-book-modal-title">Large modal</h4>
+                    </div>
+                    <div class="modal-body js-book-modal-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock page_content %}
 
 {% block templates %}
     {{ parent() }}
-    <script type="text/x-handlebars" id="index">
-        <div class="control-bar">
-            <button type="button" class="btn btn-primary btn-add-book">Add book</button>
+    {% raw %}
+        <script type="text/stache" id="librarySelectorView">
+           {{#each libraries}}
+               <option value="{{id}}" {{data 'library'}}>{{name}}</option>
+           {{/each}}
+        </script>
 
-            <label for="selectLibrary">Library:</label>
-            <select class="form-control library-selector" id="selectLibrary">
-                <option>Select library...</option>
-                {% raw %}
-                {{#each}}
-                    <option value="{{id}}">{{name}}</option>
-                {{/each}}
-                {% endraw %}
-            </select>
+        <script type="text/stache" id="booksView">
+        {{#if library}}
+            {{#if books}}
+                <table class="table table-striped books-table js-book-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Book</th>
+                            <th>Author</th>
+                            <th class="actions-row">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each books}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{name}}</td>
+                            <td>{{author}}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm js-edit-book" {{data 'book'}}>Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger js-delete-book" {{data 'book'}}>Delete</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                <p class="info">There is no books in the library.</p>
+            {{/if}}
+        {{else}}
+            <p class="info">Please select the library.</p>
+        {{/if}}
+        </script>
 
-            <button type="button" class="btn">Modify</button>
-            <button type="button" class="btn">Delete</button>
-        </div>
+        <script type="text/stache" id="bookEditForm">
+            <form role="form" class="js-book-form">
+                <div class="form-group">
+                    <label for="bookFormName">Name</label><input class="form-control js-name-field" id="bookFormName" type="text" value="{{book.name}}" />
+                </div>
+                <div class="form-group">
+                    <label for="bookFormAuthor">Author</label><input class="form-control js-author-field" id="bookFormAuthor" type="text" value="{{book.author}}" />
+                </div>
+                <input type="hidden" class="js-library-id" value="{{book.library}}" />
+                <input type="hidden" class="js-id" value="{{book.id}}" />
+                <button type="submit" class="btn btn-default js-submit-book">Save</button>
+            </form>
+        </script>
+    {% endraw %}
+     {#
 
-        <table class="table table-striped books-table">
-            <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Book
-                </th>
-                <th>
-                    Author
-                </th>
-                <th class="actions-row">
-                    Actions
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    1
-                </td>
-                <td>
-                    TB - Monthly
-                </td>
-                <td>
-                    01/04/2012
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm">Edit</button>
-                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    1
-                </td>
-                <td>
-                    TB - Monthly
-                </td>
-                <td>
-                    01/04/2012
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm">Edit</button>
-                    <button type="button" class="btn btn-sm">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    2
-                </td>
-                <td>
-                    TB - Monthly
-                </td>
-                <td>
-                    02/04/2012
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm">Edit</button>
-                    <button type="button" class="btn btn-sm">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    3
-                </td>
-                <td>
-                    TB - Monthly
-                </td>
-                <td>
-                    03/04/2012
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm">Edit</button>
-                    <button type="button" class="btn btn-sm">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    4
-                </td>
-                <td>
-                    TB - Monthly
-                </td>
-                <td>
-                    04/04/2012
-                </td>
-                <td>
-                    <button type="button" class="btn btn-sm">Edit</button>
-                    <button type="button" class="btn btn-sm">Delete</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
 
         <!--ul class="pagination">
             <li>
@@ -145,10 +120,9 @@
                 <a href="#">Next</a>
             </li>
         </ul-->
-    </script>
 
 
-    <script type="text/x-handlebars" id="form">
+
         <!--button type="button" class="btn btn-primary btn-lg">Default</button-->
         <form role="form">
             <div class="form-group">
@@ -167,5 +141,5 @@
                 <label><input type="checkbox" /> Check me out</label>
             </div> <button type="submit" class="btn btn-default">Submit</button>
         </form>
-    </script>
+      #}
 {% endblock templates %}
