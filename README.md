@@ -2,6 +2,19 @@ bookshelf
 =========
 This is a test bookshelf application.
 
+Installation
+============
+
+1. > git clone git@github.com:nchervyakov/bookshelf.git
+2. > cd bookshelf
+3. > composer install 
+     (Here input database credentials (params are here: bookshelf/app/config))
+4. > php app/console doctrine:migrations:migrate 
+5. > php app/console doctrine:fixtures:load
+6. > http://127.0.0.1:8000/app_dev.php
+7. > Profit!
+
+
 
 script to fetch books from ozon
 ===============================
