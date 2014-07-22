@@ -83,10 +83,10 @@
         <script type="text/stache" id="bookEditForm">
             <form role="form" class="js-book-form">
                 <div class="form-group">
-                    <label for="bookFormName">Name</label><input class="form-control js-name-field" id="bookFormName" type="text" value="{{book.name}}" />
+                    <label for="bookFormName">Name</label><input class="form-control js-name-field" id="bookFormName" type="text" value="{{book.name}}" required />
                 </div>
                 <div class="form-group">
-                    <label for="bookFormAuthor">Author</label><input class="form-control js-author-field" id="bookFormAuthor" type="text" value="{{book.author}}" />
+                    <label for="bookFormAuthor">Author</label><input class="form-control js-author-field" id="bookFormAuthor" type="text" value="{{book.author}}" required />
                 </div>
                 <input type="hidden" class="js-library-id" value="{{book.library}}" />
                 <input type="hidden" class="js-id" value="{{book.id}}" />
